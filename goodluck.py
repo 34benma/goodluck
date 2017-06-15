@@ -278,10 +278,24 @@ def push(ui, repo, dest=None, **opts):
     else:
         ui.write("放弃本次提交...\\n")
 
+@command('branch',
+    [('f', 'force', None,
+     _('set branch name even if it shadows an existing branch')),
+    ('C', 'clean', None, _('reset branch name to parent branch name'))],
+    _('[-fC] [NAME]'))
+def branch(ui, repo, label=None, **opts):
+    if label:
+        resp = _getResp(ui.prompt("是否是在创建新分支？父分支是否正确?(y/n)\\n",default="n"))
+        if resp:
+            commands.branch(ui, repo, label, **opts)
+            ui.write("新分支创建完毕...\\n")
+        else:
+            ui.write("放弃创建新分支...\\n")
+
+
 def _getResp(resp):
     return resp in ("y","Y","YES","Yes","yes","1")
-
-
+    
 """
 
 def get_ext_file(ext_path):
