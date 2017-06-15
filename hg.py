@@ -257,6 +257,7 @@ def branch(ui, repo, label=None, **opts):
             ui.write("新分支创建完毕...\\n")
         else:
             ui.write("放弃创建新分支...\\n")
+    commands.branch(ui, repo, label, **opts)
 
 
 def _getResp(resp):
