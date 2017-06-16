@@ -25,6 +25,16 @@ goodluck是我在工作过程中使用mercurial命令行提交代码过程中问
 - 新增提交前强制新老代码比对
 - 新增颜色高亮
 
+[V0.0.3](https://github.com/34benma/goodluck/tree/V_0_0_3)
+
+- 新增国际化支持
+- 切换以及提交代码过程中分支信息展示
+- 支持Python3安装(运行环境十分支持Python3取决于mercurial的安装环境)
+- 修复部分提交参数错误bug
+
+!()[http://o9z6i1a1s.bkt.clouddn.com/goodluck_v3_log1.png]
+!()[http://o9z6i1a1s.bkt.clouddn.com/goodluck_v3_log2.png]
+
 ### 插件编写动机
 
 是否经常在切换分支或者提交代码前忘记先pull代码而造成分支多头？
@@ -136,14 +146,11 @@ python goodluck.py your_hgrc_path
 ### 下一步
 
 - 考虑支持高版本mercurial
-- 考虑支持Python3
 - 考虑支持git(需要做技术调研)
 
 ### 后记
 
-这个插件总共花费3个小时左右编写而成~
-
-自己用了暂时没啥问题~
+自己造轮子，不断提高工作效率是程序员不变的追求~
 
 如果你喜欢或者有好的建议，欢迎提Issue或者发邮件告诉我~
 
