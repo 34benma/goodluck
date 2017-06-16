@@ -14,6 +14,17 @@
 
 goodluck是我在工作过程中使用mercurial命令行提交代码过程中问题总结编写而成。
 
+### Version Log
+
+[V0.0.1](https://github.com/34benma/goodluck/tree/V_0_0_1)
+
+- 基本提示功能
+
+[V0.0.2](https://github.com/34benma/goodluck/tree/V_0_0_2)
+
+- 新增提交前强制新老代码比对
+- 新增颜色高亮
+
 ### 插件编写动机
 
 是否经常在切换分支或者提交代码前忘记先pull代码而造成分支多头？
