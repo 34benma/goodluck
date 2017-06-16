@@ -32,8 +32,8 @@ goodluck是我在工作过程中使用mercurial命令行提交代码过程中问
 - 支持Python3安装(运行环境十分支持Python3取决于mercurial的安装环境)
 - 修复部分提交参数错误bug
 
-!()[http://o9z6i1a1s.bkt.clouddn.com/goodluck_v3_log1.png]
-!()[http://o9z6i1a1s.bkt.clouddn.com/goodluck_v3_log2.png]
+![](http://o9z6i1a1s.bkt.clouddn.com/goodluck_v3_log1.png)
+![](http://o9z6i1a1s.bkt.clouddn.com/goodluck_v3_log2.png)
 
 ### 插件编写动机
 
