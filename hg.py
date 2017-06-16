@@ -27,6 +27,8 @@ http://www.kammerl.de/ascii/AsciiSignature.php
 Author: LouisWang(wantedonline@outlook.com)
 Version:0.0.1
 Date: 2017.06.15
+Version:0.0.2
+Date: 2017.06.16
 """
 
 from mercurial import cmdutil
@@ -190,7 +192,7 @@ def update(ui, repo, node=None, rev=None, clean=False, date=None, check=False,
     _('[-P] [-f] [[-r] REV]'))
 def merge(ui, repo, node=None, **opts):
     ui.write("正在进行代码合并操作，请检查当前分支和待合并的分支是否正确...\\n")
-    resp = _getResp(ui.prompt("是否确认完毕，如果无误，请输入确认y(y/n)\\n"))
+    resp = _getResp(ui.prompt("是否确认完毕，如果无误，请输入确认y(y/n)\\n",default="n"))
     if resp:
         ui.write("准备合并分支代码...\\n")
         commands.merge(ui, repo, node, **opts)
@@ -214,13 +216,16 @@ def commit(ui, repo, *pats, **opts):
     resp = _getResp(ui.prompt("确认提交本次修改吗？(y/n)\\n", default="n"))
     if resp:
         resp2 = _getResp(ui.prompt("是否已经比对过本次代码的新老版本(y/n)\\n",default="n"))
-        if resp2:
-            ui.write("准备提交本次修改...\\n")
-            commands.commit(ui, repo, *pats, **opts)
-            ui.write("本次修改已经提交到本地")
-        else:
-            # 开启代码比对插件
-            pass
+        if not resp2:
+            commands.diff(ui, repo, *pats,git="--git")
+
+        while not _getResp(ui.prompt("代码比对完毕?(y/n)\\n",default="n")):
+            ui.write("请仔细比对待提交代码(- 代表变更前 + 代表变更后)\\n")
+            commands.diff(ui, repo, *pats, git="--git")
+
+        ui.write("准备提交本次修改...\\n")
+        commands.commit(ui, repo, *pats, **opts)
+        ui.write("本次修改已经提交到本地")
     else:
         ui.write("放弃本次本地修改...\\n")
 

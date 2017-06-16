@@ -80,7 +80,7 @@ python goodluck.py your_hgrc_path
 如果提示没有权限执行可以将goodluck.py赋予可执行权限
 
 不到2s，你看到
-![](http://o9z6i1a1s.bkt.clouddn.com/goodluck1.png)
+![](http://o9z6i1a1s.bkt.clouddn.com/good_luck_001.png)
 
 
 打开.hgrc文件，确认是否安装成功
@@ -101,6 +101,10 @@ python goodluck.py your_hgrc_path
 2. 提交代码到本地
 
 ![](http://o9z6i1a1s.bkt.clouddn.com/goodluck_ci.png)
+
+*如果没有比对代码，就会强制比对代码*
+
+![](http://o9z6i1a1s.bkt.clouddn.com/good_luck_compare.png)
 
 3. 推送代码
 

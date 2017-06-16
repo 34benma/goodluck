@@ -28,13 +28,16 @@ http://www.kammerl.de/ascii/AsciiSignature.php
 Author: LouisWang(wantedonline@outlook.com)
 Version:0.0.1
 Date: 2017.06.15
+Version:0.0.2
+Date: 2017.06.16
 """
 
 import sys
 import ConfigParser
 import os
 
-_version = "0_0_1"
+_version = "0_0_2"
+_version_str = "V0.0.2"
 _soft_name = '''
  ,-.           . ,            ,
 /              | |            |
@@ -68,6 +71,7 @@ from mercurial import cmdutil
 from mercurial import commands
 from mercurial.i18n import _
 from mercurial import encoding
+
 
 cmdtable = {}
 command = cmdutil.command(cmdtable)
@@ -224,7 +228,7 @@ def update(ui, repo, node=None, rev=None, clean=False, date=None, check=False,
     _('[-P] [-f] [[-r] REV]'))
 def merge(ui, repo, node=None, **opts):
     ui.write("正在进行代码合并操作，请检查当前分支和待合并的分支是否正确...\\n")
-    resp = _getResp(ui.prompt("是否确认完毕，如果无误，请输入确认y(y/n)\\n"))
+    resp = _getResp(ui.prompt("是否确认完毕，如果无误，请输入确认y(y/n)\\n",default="n"))
     if resp:
         ui.write("准备合并分支代码...\\n")
         commands.merge(ui, repo, node, **opts)
@@ -248,13 +252,16 @@ def commit(ui, repo, *pats, **opts):
     resp = _getResp(ui.prompt("确认提交本次修改吗？(y/n)\\n", default="n"))
     if resp:
         resp2 = _getResp(ui.prompt("是否已经比对过本次代码的新老版本(y/n)\\n",default="n"))
-        if resp2:
-            ui.write("准备提交本次修改...\\n")
-            commands.commit(ui, repo, *pats, **opts)
-            ui.write("本次修改已经提交到本地")
-        else:
-            # 开启代码比对插件
-            pass
+        if not resp2:
+            commands.diff(ui, repo, *pats,git="--git")
+
+        while not _getResp(ui.prompt("代码比对完毕?(y/n)\\n",default="n")):
+            ui.write("请仔细比对待提交代码(- 代表变更前 + 代表变更后)\\n")
+            commands.diff(ui, repo, *pats, git="--git")
+
+        ui.write("准备提交本次修改...\\n")
+        commands.commit(ui, repo, *pats, **opts)
+        ui.write("本次修改已经提交到本地")
     else:
         ui.write("放弃本次本地修改...\\n")
 
@@ -296,12 +303,36 @@ def branch(ui, repo, label=None, **opts):
 
 def _getResp(resp):
     return resp in ("y","Y","YES","Yes","yes","1")
-    
 """
 
 def get_ext_file(ext_path):
     with open(ext_path, 'wb') as f:
         f.write(ext_data)
+
+
+def open_color_ext(config):
+    """
+    开启并设置颜色高亮插件
+    """
+    config.set('extensions','color','')
+    secs = config.sections()
+    if 'color' not in secs:
+        config.add_section('color')
+    config.set('color', 'diff.diffline','bold')
+    config.set('color', 'diff.extended','cyan bold')
+    config.set('color', 'diff.file_a','red bold')
+    config.set('color', 'diff.file_b','green bold')
+    config.set('color', 'diff.hunk','magenta')
+    config.set('color', 'diff.deleted','red')
+    config.set('color', 'diff.inserted','green')
+    config.set('color', 'diff.changed','white')
+    config.set('color', 'diff.trailingwhitespace','bold red_background')
+    config.set('color', 'status.modified','blue bold underline')
+    config.set('color', 'status.added','green bold')
+    config.set('color', 'status.removed','red bold')
+    config.set('color', 'status.deleted','cyan bold underline')
+    config.set('color', 'status.unknown','magenta bold underline')
+    config.set('color', 'status.ignored','black bold')
 
 
 def set_hgrc(ext_path):
@@ -320,7 +351,8 @@ def set_hgrc(ext_path):
         config.add_section('extensions')
 
     config.set('extensions', 'goodluck', ext_path)
-
+    # 开启颜色高亮插件
+    open_color_ext(config)
     with open(hgrc_path, 'wb') as configfile:
         config.write(configfile)
 
@@ -339,7 +371,7 @@ def main():
     get_ext_file(ext_path)
     set_hgrc(ext_path)
 
-    print _soft_name
+    print _soft_name + _version_str
     print _copyright
 
 
