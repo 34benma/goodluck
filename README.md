@@ -135,9 +135,9 @@ python goodluck.py your_hgrc_path
 
 ### 下一步
 
-下一步要支持实现的是自动打开代码比对工具，强制比对代码~
-
-这个特性还需要研究下hgdiff这个插件以及如何强制打开的问题~
+- 考虑支持高版本mercurial
+- 考虑支持Python3
+- 考虑支持git(需要做技术调研)
 
 ### 后记
 
