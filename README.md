@@ -152,7 +152,7 @@ python goodluck.py your_hgrc_path
 
 自己造轮子，不断提高工作效率是程序员不变的追求~
 
-如果你喜欢或者有好的建议，欢迎提Issue或者发邮件告诉我~
+如果你喜欢或者有好的建议，欢迎在本项目提Issue或者发邮件告诉我~
 
 Good Luck to you and me~~~
 
