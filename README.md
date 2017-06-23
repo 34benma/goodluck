@@ -145,7 +145,7 @@ python goodluck.py your_hgrc_path
 
 ### 下一步
 
-- 考虑支持高版本mercurial
+- 考虑支持高版本mercurial(这是dev的内容)
 - 考虑支持git(需要做技术调研)
 
 ### 后记
